@@ -7,7 +7,7 @@
 npm init
 ```
 
-![截屏2022-08-01 12.01.05](https://raw.githubusercontent.com/JuctTr/react-webpack5-template/master/assets/images/截屏2022-08-01 12.01.05.png)
+![Snipaste_2022-08-01_12-01-05](https://raw.githubusercontent.com/JuctTr/react-webpack5-template/master/assets/images/Snipaste_2022-08-01_12-01-05.png)
 
 ## 安装相关依赖
 
@@ -23,11 +23,11 @@ npm add -D webpack webpack-cli
 npm add react react-dom
 ```
 
-![截屏2022-08-01 12.14.31](https://raw.githubusercontent.com/JuctTr/react-webpack5-template/master/assets/images/截屏2022-08-01 12.14.31.png)
+![Snipaste_2022-08-01_12-14-31](https://raw.githubusercontent.com/JuctTr/react-webpack5-template/master/assets/images/Snipaste_2022-08-01_12-14-31.png)
 
 ### 新建.gitignore文件和图片目录
 
-![截屏2022-08-01 12.23.16](https://raw.githubusercontent.com/JuctTr/react-webpack5-template/master/assets/images/截屏2022-08-01 12.23.16.png)
+![Snipaste_2022-08-01_12-23-16](https://raw.githubusercontent.com/JuctTr/react-webpack5-template/master/assets/images/Snipaste_2022-08-01_12-23-16.png)
 
 # Linux脚本
 
@@ -54,6 +54,8 @@ find . -path ./node_modules -prune -o -name "*.md" -print | xargs sed -i '' 's/\
 接着把`/Users/username/Desktop/react-webpack5-template`字符串替换为`https://raw.githubusercontent.com/JuctTr/react-webpack5-template/master`字符串
 
 > 其实这个过程，就相当于`GitHub Action`中的工作流脚本做的工作，也就是我们研发流程提到的`持续集成（CI/CD）`中的一环
+>
+> ⚠️注意：图片名称最好不要带空格！！！
 
 当然我们的脚本不能够这么来写，我猜测实际中，如我们上面的图片路径，在工作流脚本中，应该有类似的变量映射，应该体现为如下：
 
