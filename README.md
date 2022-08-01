@@ -93,10 +93,12 @@ build/
 
 https://prettier.io/docs/en/precommit.html
 
+# 配置 TypeScript 支持
+
 # 配置 Babel
 
 ```bash
-npm add -D @babel/core @babel/preset-env babel-loader @babel/plugin-transform-runtime @babel/preset-react
+npm install -D @babel/core @babel/preset-env babel-loader @babel/plugin-transform-runtime @babel/preset-react
 ```
 
 如果你对 Babel 相关依赖不了解，比如看到如下图所示的 npm 包，脑子里 🧠 想着“woc，这 tm 都是些什么？”，那么建议看`19组清风`大佬的[Babel 专栏文章](https://juejin.cn/column/7031914136783028237)，你将会学习到很多关于工作中实践到的东西
