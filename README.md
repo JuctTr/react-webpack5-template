@@ -70,6 +70,8 @@ find . -path ./node_modules -prune -o -name "*.md" -print | xargs sed -i '' 's/\
 
 研究中..........................
 
+👻本来为了创建一个工程化配置模板，搞着搞着变成了学习如何`rm -rf`跑路🤡
+
 # 附录
 
 ## 寻找某一个目录中的文件
