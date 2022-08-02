@@ -2,6 +2,7 @@ module.exports = {
     env: {
         browser: true,
         es2021: true,
+        node: true,
     },
     extends: [
         'eslint:recommended',
@@ -19,5 +20,7 @@ module.exports = {
         sourceType: 'module',
     },
     plugins: ['react', '@typescript-eslint'],
-    rules: {},
+    rules: {
+        'no-var-requires': false, // typescript-eslint 默认不允许使用require，不利于静态编译
+    },
 };

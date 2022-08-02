@@ -1,8 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState, useRef, useCallback } from 'react';
+import './index.scss';
 
-const Element = <div>hello</div>;
-
-ReactDOM.render(Element, document.getElementById('root'));
-
-// ReactDOM.createRoot(document.getElementById('root'));
+export default function Index(): React.ReactElement | null {
+    return <div className="page">Hello React + Webpack5 + TypeScript</div>;
+}
