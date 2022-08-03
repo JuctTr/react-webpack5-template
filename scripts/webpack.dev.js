@@ -19,6 +19,7 @@ const devConfig = {
         compress: true,
         // 启动的端口
         port: 9000,
+        open: true,
     },
 };
 

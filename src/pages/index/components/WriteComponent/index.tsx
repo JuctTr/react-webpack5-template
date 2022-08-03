@@ -2,6 +2,8 @@ import React from 'react';
 import { useWriteContext } from '../../context';
 import { log } from '@common/utils';
 
+let j = 0;
+
 export default function WriteComponent() {
     log.info('WriteComponent', 're-render');
 
@@ -11,7 +13,7 @@ export default function WriteComponent() {
         dispatch({
             type: '__setStore',
             payload: {
-                i: Math.random(),
+                i: ++j,
             },
         });
     };

@@ -45,7 +45,6 @@ export default function Context(props: {
         | undefined;
 }) {
     const [state, dispatch] = useReducer(pageReducer, new initialState());
-
     return (
         <WriteContext.Provider value={dispatch}>
             <ReadContext.Provider value={state}>{props.children}</ReadContext.Provider>
