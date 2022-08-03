@@ -1,6 +1,6 @@
 import React from 'react';
 import { useWriteContext } from '../../context';
-import { log } from '../../../../common/utils';
+import { log } from '@common/utils';
 
 export default function WriteComponent() {
     log.info('WriteComponent', 're-render');

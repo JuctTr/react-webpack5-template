@@ -1,5 +1,5 @@
 import { useReadContext } from '../../context';
-import { log } from '../../../../common/utils';
+import { log } from '@common/utils';
 
 export default function ReadComponent() {
     log.info('ReadComponent', 're-render');

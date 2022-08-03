@@ -1,63 +1,14 @@
 const path = require('path');
-const fs = require('fs');
-const chalk = require('chalk');
-const glob = require('glob');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
+const { APP_ROOT_DIRECTORY } = require('../config/index');
+const getMultPageEntryConfig = require('./multiPageApplication');
 /**
  * @description 编译进度条
  */
 // const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 // const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
-// const devMode = process.env.NODE_ENV !== 'production';
-const appDirectory = fs.realpathSync(process.cwd());
-
-/**
- * @description 多页面打包应用
- * @returns
- */
-function setMPA() {
-    const entry = {};
-    const htmlWebpackPlugins = [];
-    const entryFiles = glob.sync(path.join(appDirectory, './src/pages/*/index.tsx'));
-
-    Object.keys(entryFiles).forEach(index => {
-        const entryFile = entryFiles[index];
-        const match = entryFile.match(/src\/pages\/(.*)\/index\.(j|t)s/);
-        const pageName = match && match[1];
-
-        console.log(`【本地目录】${entryFile}`);
-        console.log(`【页面文件】${pageName}`);
-
-        entry[pageName] = entryFile;
-        // 配置项查看：https://github.com/jantimon/html-webpack-plugin#configuration
-        htmlWebpackPlugins.push(
-            new HtmlWebpackPlugin({
-                title: pageName,
-                template: path.join(appDirectory, `public/index.html`),
-                filename: `${pageName}.html`,
-                chunks: ['vendors', pageName],
-                inject: true,
-                minify: {
-                    html5: true,
-                    collapseWhitespace: true,
-                    preserveLineBreaks: false,
-                    minifyCSS: true,
-                    minifyJS: true,
-                    removeComments: false,
-                },
-            })
-        );
-    });
-    return {
-        entry,
-        htmlWebpackPlugins,
-    };
-}
-
-const { entry, htmlWebpackPlugins } = setMPA(); // 多页面打包应用
+const { entry, htmlWebpackPlugins } = getMultPageEntryConfig(process.env.packages); // 多页面打包应用
 
 module.exports = {
     // extensions 表示需要解析的文件类型列表。
@@ -74,7 +25,7 @@ module.exports = {
     },
     entry,
     output: {
-        path: path.resolve(appDirectory, 'dist'), // 打包后的文件存放的地方
+        path: path.resolve(APP_ROOT_DIRECTORY, 'dist'), // 打包后的文件存放的地方
         filename: '[name]_[chunkhash:8].js', // 打包后输出文件的文件名 chunkhash：文件指纹，一般用来做版本管理
         clean: true, // 与 CleanWebpackPlugin 插件的功能一样， 打包时，删除dist目录构建产物，重新生成
     },
@@ -94,7 +45,7 @@ module.exports = {
             {
                 test: /\.(t|j)sx?$/,
                 // exclude: /node_modules/,
-                include: path.resolve(appDirectory, 'src'),
+                include: path.resolve(APP_ROOT_DIRECTORY, 'src'),
                 /*
                     thread-loader会对其后面的loader（这里是babel-loader）开启多进程打包。
                     进程启动大概为600ms，进程通信也有开销。(启动的开销比较昂贵，不要滥用)
@@ -117,7 +68,7 @@ module.exports = {
             {
                 test: /\.(sa|sc|c)ss$/,
                 // exclude: /node_modules/,
-                include: path.resolve(appDirectory, 'src'),
+                include: path.resolve(APP_ROOT_DIRECTORY, 'src'),
                 use: [
                     // "style-loader",
                     // 和style-loader 冲突的，功能互斥的，不能一起用，因为style-loader 是把样式插入head里面，而MiniCssExtractPlugin是提取出独立的文件，以link方式引入
@@ -137,7 +88,7 @@ module.exports = {
             {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
                 // exclude: /node_modules/,
-                include: path.resolve(appDirectory, 'src'),
+                include: path.resolve(APP_ROOT_DIRECTORY, 'src'),
                 // webpack5 资源模块改了 https://webpack.docschina.org/guides/asset-modules/
                 type: 'asset/resource',
                 // use: [
@@ -153,7 +104,7 @@ module.exports = {
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,
                 // exclude: /node_modules/,
-                include: path.resolve(appDirectory, 'src'),
+                include: path.resolve(APP_ROOT_DIRECTORY, 'src'),
                 type: 'asset/resource',
                 // webpack5 资源模块改了 https://webpack.docschina.org/guides/asset-modules/
                 // use: [
@@ -169,10 +120,10 @@ module.exports = {
             // {
             //     test: /.js$/,
             //     // exclude: /node_modules/,
-            //     include: path.resolve(appDirectory, 'src'),
+            //     include: path.resolve(APP_ROOT_DIRECTORY, 'src'),
             //     use: [
             //         {
-            //             loader: path.join(appDirectory, `loaders/condition-loader.js`),
+            //             loader: path.join(APP_ROOT_DIRECTORY, `loaders/condition-loader.js`),
             //             options: {
             //                 name: 'conditionLoader',
             //                 fileType: 'js',

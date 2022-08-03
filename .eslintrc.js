@@ -21,6 +21,12 @@ module.exports = {
     },
     plugins: ['react', '@typescript-eslint'],
     rules: {
-        'no-var-requires': false, // typescript-eslint 默认不允许使用require，不利于静态编译
+        '@typescript-eslint/no-var-requires': 0, // typescript-eslint 默认不允许使用require，不利于静态编译
+        '@typescript-eslint/no-explicit-any': 0,
+    },
+    settings: {
+        react: {
+            version: 'detect',
+        },
     },
 };
