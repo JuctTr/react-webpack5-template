@@ -8,6 +8,7 @@
         "dev": "cross-env NODE_ENV=development npm run inquirer",
         "build": "cross-env NODE_ENV=production npm run inquirer",
         "prepare": "husky install",
+        "lint": "eslint --ext .tsx,.ts,.jsx,.js --quiet --cache --fix ./src",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "dependencies": {
@@ -68,6 +69,9 @@
     },
     "homepage": "https://github.com/JuctTr/react-webpack5-template#readme",
     "lint-staged": {
-        "*.{js,css,md,ts,tsx,jsx}": "prettier --write"
+        "src/**/*.{js,css,md,ts,tsx,jsx}": [
+            "npm run lint",
+            "prettier --write"
+        ]
     }
 }

@@ -6,6 +6,7 @@ release.sh
 
 # misc
 .DS_Store
+.eslintcache
 
 npm-debug.log*
 npm-error.log*
