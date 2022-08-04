@@ -15,6 +15,16 @@ function Index(): React.ReactElement {
     );
 }
 
+// class Index extends React.Component {
+//     constructor(props: any | Readonly<any>) {
+//         super(props);
+//     }
+//     // componentWillMount() {}
+//     render(): React.ReactNode {
+//         return <div>Demo</div>;
+//     }
+// }
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 /**

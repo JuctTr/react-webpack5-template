@@ -3,6 +3,7 @@ import { log } from '@common/utils';
 
 export default function Demo() {
     log.info('Demo', 're-render');
+    // eslint-disable-next-line prefer-const
     let [i, setI] = React.useState(0);
 
     const changeI = () => {
