@@ -36,6 +36,7 @@ npm install react react-dom
 
 ```shell
 npm install prettier --save-dev --save-exact
+npm install -D eslint-config-prettier eslint-plugin-prettier
 ```
 
 ## 新建.prettierrc.js 和 .prettierignore 文件

@@ -5,6 +5,12 @@ const path = require('path');
 
 const devConfig = {
     mode: 'development',
+    target: 'web', // webpack5.x 加上之后热更新才有效果
+    /**
+     * @description 开发工具，开启 source map，编译调试
+     * @document https://webpack.docschina.org/configuration/devtool/
+     */
+    devtool: 'eval-cheap-module-source-map',
     devServer: {
         // static允许我们在DevServer下访问该目录的静态资源
         // 简单理解来说 当我们启动DevServer时相当于启动了一个本地服务器
