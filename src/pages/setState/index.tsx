@@ -11,13 +11,23 @@ class App extends React.Component<any, any> {
     }
     componentDidMount() {
         log.info('React componentDidMount！');
-        this.setState({
-            count: 1,
-        });
+        this.setState(
+            {
+                count: 1,
+            },
+            () => {
+                console.log(this.state);
+            }
+        );
         setTimeout(() => {
-            this.setState({
-                count: 8,
-            });
+            this.setState(
+                {
+                    count: 8,
+                },
+                () => {
+                    console.log(this.state);
+                }
+            );
             this.setState({
                 count: 9,
             });
