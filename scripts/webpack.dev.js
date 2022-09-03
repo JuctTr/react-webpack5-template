@@ -11,6 +11,16 @@ const devConfig = {
      * @document https://webpack.docschina.org/configuration/devtool/
      */
     devtool: 'eval-cheap-module-source-map',
+    /**
+     * @document https://webpack.docschina.org/configuration/cache/
+     * 通过 cache: filesystem 可以将构建过程的 webpack 模板进行缓存，大幅提升二次构建速度、打包速度，
+     * 当构建突然中断，二次进行构建时，可以直接从缓存中拉取，可提速 90% 左右。
+     * cache 会在开发 模式被设置成 type: 'memory' 而且在 生产 模式 中被禁用。
+     * cache: true 与 cache: { type: 'memory' } 配置作用一致。 传入 false 会禁用缓存
+     */
+    cache: {
+        type: 'filesystem', // 使用文件缓存
+    },
     devServer: {
         // static允许我们在DevServer下访问该目录的静态资源
         // 简单理解来说 当我们启动DevServer时相当于启动了一个本地服务器

@@ -1,12 +1,13 @@
 const path = require('path');
+const chalk = require('chalk');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { APP_ROOT_DIRECTORY } = require('../config/index');
 const getMultPageEntryConfig = require('./multiPageApplication');
 /**
  * @description 编译进度条
  */
-// const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-// const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
 const { entry, htmlWebpackPlugins } = getMultPageEntryConfig(process.env.packages); // 多页面打包应用
 
@@ -33,12 +34,12 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'assets/[name]_[hash:6].css',
         }),
-        // // 优化构建显示日志
-        // new FriendlyErrorsWebpackPlugin(),
-        // // 进度条
-        // new ProgressBarPlugin({
-        //     format: `  :msg [:bar] ${chalk.green.bold(':percent')} (:elapsed s)`,
-        // }),
+        // 优化构建显示日志
+        new FriendlyErrorsWebpackPlugin(),
+        // 进度条
+        new ProgressBarPlugin({
+            format: `  :msg [:bar] ${chalk.green.bold(':percent')} (:elapsed s)`,
+        }),
     ].concat(htmlWebpackPlugins),
     module: {
         rules: [
@@ -133,13 +134,15 @@ module.exports = {
             // },
         ],
     },
-    /**
-     * @document https://webpack.docschina.org/configuration/cache/
-     * 通过 cache: filesystem 可以将构建过程的 webpack 模板进行缓存，大幅提升二次构建速度、打包速度，
-     * 当构建突然中断，二次进行构建时，可以直接从缓存中拉取，可提速 90% 左右。
-     */
-    // cache: {
-    //     type: 'filesystem', // 使用文件缓存
+    // 设置分包，对基础包和业务基础包打包成一个文件，如react、react-dom、redux、react-redux等
+    // externals: {
+    //     jquery: 'jQuery',
+    //     vue: 'Vue',
+    //     lodash: {
+    //         commonjs: 'lodash',
+    //         amd: 'lodash',
+    //         root: '_', // 指向全局变量
+    //     },
     // },
     /**
      * @document https://webpack.docschina.org/configuration/stats/
