@@ -5,9 +5,13 @@ interface IPageConfig {
     e: boolean;
     f: string;
 }
-
+/**
+ * 装饰器特性还没成为ECMAScript标准，还在提案中，可能存在改变
+ * @param config
+ * @returns
+ */
 export function PageConfig(config: IPageConfig) {
-    return (Component: any) => {
+    return (target: any) => {
         const newConfig = Object.assign(
             {
                 a: 1,
@@ -21,20 +25,22 @@ export function PageConfig(config: IPageConfig) {
 
         console.log(d, e, f);
 
-        console.log(Component);
+        console.log(target);
 
-        Component = checkNetworkDecorator(Component);
+        console.log(target.elements, target.kind);
+
+        // Component = checkNetworkDecorator(Component);
 
         /**
          * 为组件渲染新增一些公共逻辑
          */
-        const componentDidMount = Component.prototype.componentDidMount;
-        Component.prototype.componentDidMount = function () {
-            console.log('【装饰器】componentWillMount => ', '公共逻辑');
-            componentDidMount?.call?.(this);
-        };
+        // const componentDidMount = Component.prototype.componentDidMount;
+        // Component.prototype.componentDidMount = function () {
+        //     console.log('【装饰器】componentWillMount => ', '公共逻辑');
+        //     componentDidMount?.call?.(this);
+        // };
 
-        return Component;
+        return target;
     };
 }
 
