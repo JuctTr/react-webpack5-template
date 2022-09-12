@@ -1,0 +1,58 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            #root {
+                width: 500px;
+                height: 500px;
+                background-color: red;
+            }
+            .container {
+                margin: auto;
+                width: 400px;
+                height: 400px;
+                background-color: blue;
+            }
+            .buttonTarget {
+                width: 100px;
+                height: 100px;
+                background-color: green;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root" onclick="nativeClickEvent()">
+            <div class="container">
+                <div class="buttonTarget"></div>
+            </div>
+        </div>
+        <script>
+            const nativeClickEvent = function () {
+                console.log('原生事件 => ');
+            };
+
+            const root = document.getElementById('root');
+            // 覆盖之前的
+            root.onclick = function (event) {
+                console.log('root原生事件 => ', event);
+                // event.stopPropagation();
+            };
+
+            const container = document.getElementsByClassName('container')[0];
+            container.addEventListener('click', e => {
+                console.log('container原生事件 => ', event);
+            });
+            const buttonTarget = document.getElementsByClassName('buttonTarget')[0];
+            buttonTarget.addEventListener('click', e => {
+                console.log('buttonTarget原生事件 => ', e);
+            });
+
+            document.addEventListener('click', event => {
+                console.log('document => ', event);
+            });
+        </script>
+    </body>
+</html>
