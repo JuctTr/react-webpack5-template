@@ -8,6 +8,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 module.exports = merge(baseConfig, {
     target: 'web',
     // devtool: 'source-map',
+    // mode: 'development',
     mode: 'production',
     plugins: [
         // 体积分析

@@ -135,15 +135,23 @@ module.exports = {
         ],
     },
     // 设置分包，对基础包和业务基础包打包成一个文件，如react、react-dom、redux、react-redux等
-    // externals: {
-    //     jquery: 'jQuery',
-    //     vue: 'Vue',
-    //     lodash: {
-    //         commonjs: 'lodash',
-    //         amd: 'lodash',
-    //         root: '_', // 指向全局变量
-    //     },
-    // },
+    /**
+     * 这个字段key 为 业务代码中 `import React from 'react';` 里面的 react，而value则为 window.React
+     * 如果不知道value是什么？可以查看比如：https://unpkg.com/react-dom@18/umd/react-dom.production.min.js中，
+     * umd是以什么名称来导出的
+     */
+    externals: {
+        react: 'React',
+        'react-dom': 'ReactDOM',
+        // react: ['https://unpkg.com/react@18/umd/react.development.js', 'react'],
+        // ReactDOM: ['https://unpkg.com/react-dom@18/umd/react-dom.development.js', 'react-dom'],
+        // lodash: ['https://cdn.jsdelivr.net/npm/lodash@4.17.19/lodash.min.js', '_'],
+        // lodash: {
+        //     commonjs: 'lodash',
+        //     amd: 'lodash',
+        //     root: '_', // 指向全局变量
+        // },
+    },
     /**
      * @document https://webpack.docschina.org/configuration/stats/
      */
