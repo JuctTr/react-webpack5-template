@@ -22,7 +22,7 @@ module.exports = {
             '@components': path.resolve(__dirname, '../src/components'),
         },
         mainFiles: ['index', 'main'],
-        extensions: ['.ts', '.tsx', '.jsx', '.scss', 'json', '.js'],
+        extensions: ['.ts', '.js', '.tsx', '.jsx', '.scss', '.json'],
     },
     entry,
     output: {
