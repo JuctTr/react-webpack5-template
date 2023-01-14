@@ -1,4 +1,16 @@
+body {
+    margin: 0;
+    padding: 0;
+}
 .page {
     background-color: bisque;
     border: 1px solid red;
+}
+.box {
+    width: 200px;
+    height: 200px;
+    background-color: bisque;
+    border: 6px solid blue;
+    padding: 20px;
+    margin: 20px;
 }
