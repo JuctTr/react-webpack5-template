@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { PageConfig as connect } from './decorator';
+import Demo from './demo';
 
 @connect({
     d: 1,
@@ -9,9 +10,13 @@ import { PageConfig as connect } from './decorator';
 })
 export default class Index extends React.Component {
     render(): React.ReactNode {
-        return <></>;
+        return (
+            <>
+                <Demo />
+            </>
+        );
     }
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(<Index />);
