@@ -12,6 +12,10 @@ class Index extends React.Component {
     };
     UNSAFE_componentWillMount() {
         console.log('【UNSAFE_componentWillMount】', '获取后台数据');
+        // let i = 0;
+        // while (i <= 1000000000) {
+        //     i++;
+        // }
     }
     // UNSAFE_componentWillReceiveProps() {
     //     console.log('【UNSAFE_componentWillReceiveProps】');
@@ -61,7 +65,7 @@ class Index extends React.Component {
         });
     };
 
-    render(): React.ReactNode {
+    render() {
         console.log('【render】=> ', '执行render函数');
         const { a, b, c } = this.state;
         return (
