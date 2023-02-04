@@ -1,6 +1,7 @@
 import { log } from '@src/common/utils';
 import React, { useState, useRef, useCallback } from 'react';
 import ReactDOM from 'react-dom/client';
+import { unstable_batchedUpdates } from 'react-dom';
 
 class App extends React.Component<any, any> {
     constructor(props: any) {
@@ -48,7 +49,7 @@ class App extends React.Component<any, any> {
         //     });
         //     console.log(this.state.count);
         // });
-        // 可以看出来，在React版本：18.2.0中，setState都是批量处理的
+        // 可以看出来，在React版本：18.2.0中，setState在以上两种场景都是批量处理的
 
         // 第三个例子
         // this.setState({
@@ -65,6 +66,24 @@ class App extends React.Component<any, any> {
         //     count: 2,
         // });
         // console.log(this.state.count);
+
+        // 第四个例子 貌似React18版本之前，可以通过unstable_batchedUpdates函数来实现异步批量处理机制
+        // setTimeout(() => {
+        //     unstable_batchedUpdates(() => {
+        //         this.setState({
+        //             count: 1,
+        //         });
+        //         console.log(this.state.count);
+        //         this.setState({
+        //             count: 2,
+        //         });
+        //         console.log(this.state.count);
+        //         this.setState({
+        //             count: 3,
+        //         });
+        //         console.log(this.state.count);
+        //     });
+        // });
     }
     render() {
         log.info('render: ', this.state.count);
