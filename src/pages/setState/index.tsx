@@ -24,6 +24,10 @@ class App extends React.Component<any, any> {
             count: 3,
         });
         console.log(this.state.count);
+        Promise.resolve().then(() => {
+            log.info('为了能够证明setState这个过程均发生在同一个执行栈，这里在Promise then打印一下this.state');
+            console.log('Promise then => ', this.state);
+        });
         // 第二个例子
         // setTimeout(() => {
         //     this.setState(
