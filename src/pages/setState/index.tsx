@@ -11,29 +11,9 @@ class App extends React.Component<any, any> {
     }
     componentDidMount() {
         log.info('React componentDidMount！');
-        this.setState(
-            {
-                count: 1,
-            },
-            () => {
-                console.log(this.state);
-            }
-        );
-        setTimeout(() => {
-            this.setState(
-                {
-                    count: 8,
-                },
-                () => {
-                    console.log(this.state);
-                }
-            );
-            this.setState({
-                count: 9,
-            });
-            this.setState({
-                count: 10,
-            });
+        // 第一个例子
+        this.setState({
+            count: 1,
         });
         console.log(this.state.count);
         this.setState({
@@ -44,11 +24,49 @@ class App extends React.Component<any, any> {
             count: 3,
         });
         console.log(this.state.count);
+        // 第二个例子
+        // setTimeout(() => {
+        //     this.setState(
+        //         {
+        //             count: 8,
+        //         },
+        //         () => {
+        //             console.log('setTimeout setState callback => ', this.state);
+        //         }
+        //     );
+        //     console.log(this.state.count);
+        //     this.setState({
+        //         count: 9,
+        //     });
+        //     console.log(this.state.count);
+        //     this.setState({
+        //         count: 10,
+        //     });
+        //     console.log(this.state.count);
+        // });
+        // 可以看出来，在React版本：18.2.0中，setState都是批量处理的
+
+        // 第三个例子
+        // this.setState({
+        //     count: 1,
+        // });
+        // console.log(this.state.count);
+        // setTimeout(() => {
+        //     this.setState({
+        //         count: 10,
+        //     });
+        //     console.log('setTimeout => ', this.state.count);
+        // });
+        // this.setState({
+        //     count: 2,
+        // });
+        // console.log(this.state.count);
     }
     render() {
-        console.log('render:', this.state.count);
+        log.info('render: ', this.state.count);
         return (
             <div id="parent">
+                <h1>React版本：18.2.0</h1>
                 {this.state.count}
                 <div id="child">setState 是异步的还是同步的？</div>
             </div>
@@ -56,5 +74,5 @@ class App extends React.Component<any, any> {
     }
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(<App />);
