@@ -1,101 +1,89 @@
-import { log } from '@src/common/utils';
-import React, { useState, useRef, useCallback } from 'react';
-import ReactDOM from 'react-dom/client';
-import { unstable_batchedUpdates } from 'react-dom';
+/**
+ * 【注意】：此例子是在 react 16.12.0 版本测试，请到 public / index.html中修改 cdn的版本
+ */
+import React, { useEffect, useState } from 'react';
+import ReactDOM, { unstable_batchedUpdates } from 'react-dom';
+import { log } from '../../common/utils';
 
-class App extends React.Component<any, any> {
-    constructor(props: any) {
-        super(props);
-        this.state = {
-            count: 0,
-        };
-    }
-    componentDidMount() {
-        log.info('React componentDidMount！');
-        // 第一个例子
-        this.setState({
-            count: 1,
-        });
-        console.log(this.state.count);
-        this.setState({
-            count: 2,
-        });
-        console.log(this.state.count);
-        this.setState({
-            count: 3,
-        });
-        console.log(this.state.count);
-        Promise.resolve().then(() => {
-            log.info('为了能够证明setState这个过程均发生在同一个执行栈，这里在Promise then打印一下this.state');
-            console.log('Promise then => ', this.state);
-        });
-        // 第二个例子
-        // setTimeout(() => {
-        //     this.setState(
-        //         {
-        //             count: 8,
-        //         },
-        //         () => {
-        //             console.log('setTimeout setState callback => ', this.state);
-        //         }
-        //     );
-        //     console.log(this.state.count);
-        //     this.setState({
-        //         count: 9,
-        //     });
-        //     console.log(this.state.count);
-        //     this.setState({
-        //         count: 10,
-        //     });
-        //     console.log(this.state.count);
-        // });
-        // 可以看出来，在React版本：18.2.0中，setState在以上两种场景都是批量处理的
+const fetchData = (): Promise<string> => Promise.resolve('success');
 
-        // 第三个例子
-        // this.setState({
-        //     count: 1,
-        // });
-        // console.log(this.state.count);
-        // setTimeout(() => {
-        //     this.setState({
-        //         count: 10,
-        //     });
-        //     console.log('setTimeout => ', this.state.count);
-        // });
-        // this.setState({
-        //     count: 2,
-        // });
-        // console.log(this.state.count);
+function usePageInit() {
+    const [a, setA] = useState(0);
+    const [b, setB] = useState({});
+    const [c, setC] = useState<number[]>([]);
+    const [d, setD] = useState(true);
 
-        // 第四个例子 貌似React18版本之前，可以通过unstable_batchedUpdates函数来实现异步批量处理机制
-        // setTimeout(() => {
-        //     unstable_batchedUpdates(() => {
-        //         this.setState({
-        //             count: 1,
+    useEffect(() => {
+        // 同步 1次 init render 1次 re-render
+        // setA(a => a + 1);
+        // setB({ b: 0 });
+        // setC([0]);
+        // setD(false);
+        // 异步, 1次 init render 4次 re-render
+        fetchData()
+            .then(res => {
+                log.info(res);
+                setA(a => a + 1);
+                setB({ b: 0 });
+                setC([0]);
+                setD(false);
+            })
+            .catch(error => console.log(error));
+        // 把异步也变成, 1次 init render 1次 re-render
+        // fetchData()
+        //     .then(res => {
+        //         log.info(res);
+        //         unstable_batchedUpdates(() => {
+        //             setA(a => a + 1);
+        //             setB({ b: 0 });
+        //             setC([0]);
+        //             setD(false);
         //         });
-        //         console.log(this.state.count);
-        //         this.setState({
-        //             count: 2,
-        //         });
-        //         console.log(this.state.count);
-        //         this.setState({
-        //             count: 3,
-        //         });
-        //         console.log(this.state.count);
-        //     });
-        // });
-    }
-    render() {
-        log.info('render: ', this.state.count);
-        return (
-            <div id="parent">
-                <h1>React版本：18.2.0</h1>
-                {this.state.count}
-                <div id="child">setState 是异步的还是同步的？</div>
-            </div>
-        );
-    }
+        //     })
+        //     .catch(error => console.log(error));
+    }, []);
+
+    return {
+        a,
+        b,
+        c,
+        d,
+    };
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-root.render(<App />);
+function Index(): React.ReactElement {
+    log.error('Index render');
+
+    const { a, b, c, d } = usePageInit();
+    console.log(a, b, c, d);
+
+    const [num, setNum] = useState(0);
+
+    const updateNum = () => {
+        setNum(num => num + 1);
+        setNum(num => num + 1);
+        setNum(num => num + 1);
+        setNum(num => num + 1);
+        setNum(num => num + 1);
+    };
+
+    return (
+        <div>
+            <button onClick={updateNum}>点击 num</button>
+        </div>
+    );
+}
+
+/**
+ * 【注意】：此例子是在 react 16.12.0 版本测试，请到 public / index.html中修改 cdn的版本
+ */
+ReactDOM.render(<Index />, document.getElementById('root') as HTMLElement);
+
+/**
+ * React 18.2.0
+ */
+// const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+/**
+ * @document https://zh-hans.reactjs.org/docs/strict-mode.html
+ */
+// root.render(<Index />);
