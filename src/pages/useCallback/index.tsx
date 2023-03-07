@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useCallback, useState, useMemo } from 'react';
 import ReactDOM from 'react-dom/client';
 import { log } from '@src/common/utils';
 
@@ -30,11 +30,17 @@ const DemoUseCallback = () => {
     const getInfo = useCallback((sonName: string) => {
         console.log(sonName);
     }, []);
+    // 执行回调，并返回结果，只不过这里的结果是一个函数
+    const getInfo2 = useMemo(() => {
+        return function (sonName: string) {
+            console.log('useMemo => ', sonName);
+        };
+    }, []);
     return (
         <div>
             {/* 点击按钮触发父组件更新 ，但是子组件没有更新 */}
             <button onClick={() => setNumber(number + 1)}>增加</button>
-            <DemoChildren getInfo={getInfo} />
+            <DemoChildren getInfo={getInfo2} />
         </div>
     );
 };
