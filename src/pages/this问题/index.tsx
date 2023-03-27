@@ -11,7 +11,7 @@ import { log } from '@src/common/utils';
 //         console.log('React this 指向问题', this); // undefined
 //     }
 //     render() {
-//         return <div onClick={this.clickFun}>React this 指向问题</div>;
+//         return <div onClick={this.clickFun}>React this 指向问题 (普通函数)</div>;
 //     }
 // }
 
@@ -25,10 +25,10 @@ import { log } from '@src/common/utils';
 //         console.log('React 事件');
 //     };
 //     clickFun() {
-//         console.log('React this 指向问题', this); // undefined
+//         console.log('React this 指向问题', this); // App{props: {…}, context: {…}, refs: {…}, updater: {…}, childClickFun: ƒ,…}
 //     }
 //     render() {
-//         return <div onClick={this.clickFun}>React this 指向问题</div>;
+//         return <div onClick={this.clickFun}>React this 指向问题（利用bind绑定this上下文）</div>;
 //     }
 // }
 
@@ -41,10 +41,10 @@ import { log } from '@src/common/utils';
 //         console.log('React 事件');
 //     };
 //     clickFun = () => {
-//         console.log('React this 指向问题', this); // undefined
+//         console.log('React this 指向问题', this); // App{props: {…}, context: {…}, refs: {…}, updater: {…}, childClickFun: ƒ,…}
 //     };
 //     render() {
-//         return <div onClick={this.clickFun}>React this 指向问题</div>;
+//         return <div onClick={this.clickFun}>React this 指向问题 (箭头函数)</div>;
 //     }
 // }
 // =================== Demo four 利用箭头函数的特点2 ====================
@@ -56,7 +56,7 @@ class App extends React.Component<any, any> {
         console.log('React 事件');
     };
     clickFun() {
-        console.log('React this 指向问题', this); // undefined
+        console.log('React this 指向问题', this); // App{props: {…}, context: {…}, refs: {…}, updater: {…}, childClickFun: ƒ,…}
     }
     render() {
         return <div onClick={() => this.clickFun()}>React this 指向问题</div>;
